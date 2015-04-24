@@ -2,7 +2,7 @@
 
 angular.module('segmentio', ['ng'])
 
-.factory('segmentio', function($rootScope, $window, $location, $log, $q) {
+.factory('segmentio', ["$rootScope", "$window", "$location", "$log", "$q", function($rootScope, $window, $location, $log, $q) {
   var service = {};
 
   $window.analytics = $window.analytics || [];
@@ -62,12 +62,5 @@ angular.module('segmentio', ['ng'])
   // Add a version to keep track of what's in the wild.
   $window.analytics.SNIPPET_VERSION = '2.0.9';
 
-  // Listening to $viewContentLoaded event to track pageview
-  $rootScope.$watch(function() {
-    return $location.path();
-  }, function(value) {
-    service.page(value);
-  });
-
   return service;
-});
+}]);
